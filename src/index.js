@@ -26,7 +26,7 @@ const App = () => {
   ];
   const text = "On Monday night , Mr. Fallon will have a co-host for the first time : The rapper Cardi B , who just released her first album,  Invasion of Privacy";
 
-  const onAnnotationsChange = (annotations, newAnnotations) => console.log(annotations, newAnnotations)
+  const onAnnotationsChange = (deleteAnnotations, newAnnotations) => console.log(deleteAnnotations, newAnnotations)
 
   return (
       <Editor

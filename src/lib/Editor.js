@@ -299,15 +299,15 @@ const WrappedEditor = ({style, annotations, tags, text, onAnnotationsChange}) =>
 
   useEffect(() => {
     const subscribeAnnotations = () => {
-      let currentA, currentNa;
+      let currentD, currentNa;
       return store.subscribe(() => {
-        let prevA = currentA
+        let prevD = currentD
         let prevNa = currentNa
         currentNa =  store.getState().anonymizer.newAnnotations
-        currentA = store.getState().anonymizer.annotations
-        if(prevA !== currentA || prevNa !== currentNa ) {
+        currentD = store.getState().anonymizer.deleteAnnotations
+        if(prevD !== currentD || prevNa !== currentNa ) {
           onAnnotationsChange(
-            currentA,
+            currentD,
             currentNa
           );
         }
