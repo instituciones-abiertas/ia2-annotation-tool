@@ -295,8 +295,30 @@ const Editor = ({ style, annotations, tags, text}) => {
   )
 }
 
-const WrappedEditor = ({style, annotations, tags, text}) => {
+const WrappedEditor = ({style, annotations, tags, text, onAnnotationsChange}) => {
   const store = configuredStore();
+
+  useEffect(() => {
+    const subscribeAnnotations = () => {
+      let currentA, currentNa;
+      return store.subscribe(() => {
+        let prevA = currentA
+        let prevNa = currentNa
+        currentA =  store.getState().anonymizer.newAnnotations
+        currentNa = store.getState().anonymizer.annotations
+        if(prevA !== currentA || prevNa !== currentNa ) {
+          onAnnotationsChange(
+            currentA,
+            currentNa
+          );
+        }
+      })
+    }
+    const unsubscribe = subscribeAnnotations()
+    return () => unsubscribe()
+  }, [onAnnotationsChange, store])
+
+
   return (
     <Provider store={store}>
       <Editor

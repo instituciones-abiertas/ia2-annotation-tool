@@ -27,12 +27,16 @@ const App = () => {
     { id:1, start:18, end:28, tag:'PERSON', should_anonymized: true, human_marked_ocurrency: false }
   ];
   const text = "On Monday night , Mr. Fallon will have a co-host for the first time : The rapper Cardi B , who just released her first album,  Invasion of Privacy";
+
+  const onAnnotationsChange = (annotations, newAnnotations) => console.log( annotations, newAnnotations)
+
   return (
       <Editor
         style={style}
         annotations={annotations}
         tags={tags}
         text={text}
+        onAnnotationsChange={onAnnotationsChange}
       />
   );
 }
