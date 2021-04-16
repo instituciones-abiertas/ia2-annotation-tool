@@ -303,8 +303,8 @@ const WrappedEditor = ({style, annotations, tags, text, onAnnotationsChange}) =>
       return store.subscribe(() => {
         let prevA = currentA
         let prevNa = currentNa
-        currentA =  store.getState().anonymizer.newAnnotations
-        currentNa = store.getState().anonymizer.annotations
+        currentNa =  store.getState().anonymizer.newAnnotations
+        currentA = store.getState().anonymizer.annotations
         if(prevA !== currentA || prevNa !== currentNa ) {
           onAnnotationsChange(
             currentA,
