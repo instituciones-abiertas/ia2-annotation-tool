@@ -2,7 +2,6 @@ import { TextAnnotator } from 'react-text-annotate';
 import React, {useState, useEffect} from 'react';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { combineReducers } from 'redux';
-// eslint-disable-next-line import/no-cycle
 import anonymizerReducer from './anonymizerSlice';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import Instructions from './Instructions';

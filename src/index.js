@@ -11,10 +11,8 @@ const App = () => {
      overflowY: 'scroll',
      backgroundColor: 'var(--contrast-color)',
      color: 'var(--secondary-color)',
-     borderBottom: 'solid',
      borderColor: 'var(--secondary-color)',
      borderWidth: '0.1em',
-     height: '100%',
      padding: '3em',
      fontFamily: 'Saira-Regular',
      zoom: 1,
@@ -28,7 +26,7 @@ const App = () => {
   ];
   const text = "On Monday night , Mr. Fallon will have a co-host for the first time : The rapper Cardi B , who just released her first album,  Invasion of Privacy";
 
-  const onAnnotationsChange = (annotations, newAnnotations) => console.log( annotations, newAnnotations)
+  const onAnnotationsChange = (annotations, newAnnotations) => console.log(annotations, newAnnotations)
 
   return (
       <Editor
