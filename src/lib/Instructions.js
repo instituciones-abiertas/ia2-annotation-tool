@@ -86,7 +86,7 @@ export default function Instructions(props) {
           <Box className={classes.legendsBox}>
             {legends.map((legend, index) => {
               return (
-                <Typography component="span" style={{display: 'flex', alignItems: 'center'}}>
+                <Typography key={index} component="span" style={{display: 'flex', alignItems: 'center'}}>
                   <span
                     className={classes.smallbox}
                     style={{

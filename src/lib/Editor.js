@@ -153,7 +153,7 @@ const Editor = ({ style, annotations, tags, text}) => {
       dispatch(updateSelectTag(tags[0].name));
   }, [dispatch, annotations, tags, text]);
 
-  const [selectedTag, setSelectedTag] = useState(state.selectTag?.name);
+  const [selectedTag, setSelectedTag] = useState(tags[0]?.name);
 
   const renderSelect = () => {
     return (
@@ -166,6 +166,7 @@ const Editor = ({ style, annotations, tags, text}) => {
           value={selectedTag}
           onChange={(event) => handleTagSelection(event)}
           className={classes.selector}
+          defaultValue={""}
           color="secondary"
           classes={{ icon: classes.selectorIcon, select: classes.selectInput }}
           disableUnderline
@@ -213,7 +214,7 @@ const Editor = ({ style, annotations, tags, text}) => {
     }
   };
 
-  const handleDelete = (index: number, value) => {
+  const handleDelete = (index, value) => {
     // Check if annotations exist in newAnnotations array
     if (
       state.newAnnotations.some(
@@ -234,7 +235,7 @@ const Editor = ({ style, annotations, tags, text}) => {
     return null;
   };
 
-  const handleClick = (index: number, value) => {
+  const handleClick = (index, value) => {
     handleDelete(index, value);
   };
 
