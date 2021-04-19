@@ -16,6 +16,15 @@
 | **`text`** | Document Text  |
 | **`onAnnotationsChange`** | Function to get added and deleted annotations |
 
+### Instructions
+
+| Prop | Description |
+:------------ |:---------------|
+| **`title`** | String |
+| **`subtitle`** | String |
+| **`legends`** | Array with objects of color and description   |
+| **`children`** | Children to be rendered  |
+
 ## Development
 
 ### Build as library
