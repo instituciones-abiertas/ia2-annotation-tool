@@ -4,8 +4,8 @@ import { Provider, useSelector, useDispatch } from 'react-redux';
 import { combineReducers } from 'redux';
 import anonymizerReducer from './anonymizerSlice';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import Instructions from './Instructions';
-import styles from './EditionStep.module.css';
+import Instructions from '../Instructions';
+import styles from './Editor.module.css';
 import {
   selectAnonymizer,
   updateAnnotations,
