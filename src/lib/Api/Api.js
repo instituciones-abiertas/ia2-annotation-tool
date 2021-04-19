@@ -178,7 +178,7 @@ const Api = (baseUrl) => {
     }
   }
 
-  const getDocDownload = async function getDocToDownload(docId, fileName) {
+  const getDocToDownload = async function getDocToDownload(docId, fileName) {
     const ENDPOINT_URL = `act/${docId}/getAnonymousDocument/`;
     try {
       const response = await requester.get(ENDPOINT_URL, {
@@ -231,7 +231,7 @@ const Api = (baseUrl) => {
     getSubjects: getSubjects,
     selectSubject: selectSubject,
     getEntities: getEntities,
-    getDocDownload: getDocDownload,
+    getDocToDownload: getDocToDownload,
     getDocPublishedToDrive: getDocPublishedToDrive,
     getDocPublished: getDocPublished,
   }
