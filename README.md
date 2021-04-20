@@ -25,6 +25,27 @@
 | **`legends`** | Array with objects of color and description   |
 | **`children`** | Children to be rendered  |
 
+### Api
+> Access to Ia2 API
+
+| Prop | Description |
+:------------ |:---------------|
+| **`api_url`** | String |
+
+
+#### Available functions
+- userLogin
+- userLogout
+- refreshToken
+- getAnonymizedDoc
+- getDocAnalysis
+- getSubjects
+- selectSubject
+- getEntities
+- getDocToDownload
+- getDocPublishedToDrive
+- getDocPublished
+
 ## Development
 
 ### Build as library
