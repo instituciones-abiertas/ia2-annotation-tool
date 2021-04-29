@@ -196,12 +196,14 @@ const Editor = ({ style, annotations, tags, text}) => {
     );
   };
 
-
   const handleEntitySelection = (value, span) => {
     // Check if annotations exist in deleteAnnotations array
     if (
       state.deleteAnnotations.some(
-        (annot) => annot.start === span.start && annot.end === span.end
+        (annot) =>
+          annot.start === span.start &&
+          annot.end === span.end &&
+          annot.tag === span.tag
       )
     ) {
       // Remove a delete annotation and update annotations by show in editor
