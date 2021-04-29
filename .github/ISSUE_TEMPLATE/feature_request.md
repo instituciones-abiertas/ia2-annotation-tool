@@ -1,3 +1,13 @@
+---
+name: Pedido de Feature
+about: Nueva funcionalidad
+title: ''
+labels: 'enhancement'
+assignees: 'josx'
+
+---
+
+
 **¿Tu solicitud de funcionalidad está relacionada a un problema? Añada una descripción, por favor.**
 
 _Insertar descripción clara y concisa del problema._

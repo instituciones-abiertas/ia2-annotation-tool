@@ -1,3 +1,13 @@
+---
+name: Bug
+about: Fix/Arreglo
+title: ''
+labels: 'bug'
+assignees: 'josx'
+---
+
+
+
 **Describa el bug**
 
 <!--
@@ -13,7 +23,7 @@ Pasos para reproducir el comportamiento:
 <!-- Ejemplo:
 1. Accedo a la aplicación con credenciales de prueba
 2. Subo el siguiente documento de prueba `documento.docx`
-4. El error devuelto describe...
+3. El error devuelto describe...
 -->
 
 1. ...
