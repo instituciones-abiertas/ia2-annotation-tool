@@ -1,45 +1,52 @@
-# Guía de contribución de IA²-annotation-tool
+# `ia2-annotation-tool` Contributing Guide
 
-¡Hola! Estamos muy emocionadxs de que estes interesadx en contribuir a IA²-annotation-tool. Antes de enviar Pull Requests, asegurate de tomarte un momento y leer las siguientes pautas:
+Hi! We're really excited that you are interested in contributing to `ia2-annotation-tool`. Before submitting your contribution, please make sure to take a moment and read through the following guidelines:
 
-- [Código de conducta](https://github.com/instituciones-abiertas/ia2-annotation-tool/blob/master/.github/CODE_OF_CONDUCT.md)
-- [Pautas para la apertura de issues](#pautas-para-la-apertura-de-issues)
-- [Pautas para la apertura de Pull Requests](#pautas-para-la-apertura-de-pull-requests)
-- [Configuración de desarrollo](#configuración-de-desarrollo)
-- [Estructura del proyecto](#estructura-del-proyecto)
++ [Code of Conduct](https://github.com/instituciones-abiertas/ia2-annotation-tool/blob/main/CODE_OF_CONDUCT.md)
++ [Issue Reporting Guidelines](#issue-reporting-guidelines)
++ [Pull Request Guidelines](#pull-request-guidelines)
++ [Development Setup](#development-setup)
 
-## Pautas para la apertura de issues
+## Issue Reporting Guidelines
 
-- Utiliza siempre nuestros templates de issue para [**bugs**](url-del-template) o para [**features**](url-del-template) para crear issues.
++ Always use our [**bug**](https://github.com/instituciones-abiertas/ia2-annotation-tool/issues/new?assignees=&labels=bug&template=bug_report.md&title=) or [**feature**](https://github.com/instituciones-abiertas/ia2-annotation-tool/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=) templates to create an issue.
 
-## Pautas para la apertura de Pull Requests
+## Pull Request Guidelines
 
-- La rama `main` es solo un snapshot de la última versión estable. Todo el desarrollo debe realizarse en ramas dedicadas que apunten a la rama `develop`. **No envíes PRs contra la rama `main`.**
++ The `main` branch is just a snapshot of the latest stable release. All development should be done in dedicated branches. **Do not submit PRs against the `main` branch.**
 
-- Siempre realizar un checkout partiendo de la rama en cuestión, ej: `develop` y realizar el merge contra esa misma rama al finalizar. Siga esta convención para la nueva rama: `númeroDeIssue-usuarioDeGithub-títuloDeCommit`.
++ Checkout a topic branch from the relevant branch, e.g. `develop`, and merge back against that branch. Please follow this convention for the new branch: `issueNumber-githubUsername-commitTitle`.
 
-- Esta bien realizar varios commit pequeños mientras trabajas en el PR. Podemos realizar un squash antes de mergear la rama, si es necesario.
++ Most of the contributed work should generally target the `src` directory or the `assets` directory on rare occasions when the client needs a `javascript` poke.
 
-- Si agregas una nueva característica:
++ It's OK to have multiple small commits as you work on the PR. We may squash them before merging if necessary.
 
-  - Agrega un caso de prueba
-  - Proporciona una razón convincente para agregar esta función. Idealmente, primero debes abrir un issue comentando la sugerencia y aguardar que se apruebe antes de trabajar en él.
++ If adding a new feature:
+  + Add accompanying test cases.
+  + Provide a convincing reason to add this feature. Ideally, you should open a suggestion issue first and have it approved before working on it.
 
-- Si arreglas un bug:
-  - Si estas resolviendo un caso especial sigue la convención de nomenclatura de ramas mencionada anteriormente.
-  - Proporciona una descripción detallada de la resolución del bug en el PR. Se prefiere una demostración en vivo.
++ If fixing a bug:
+  + If you are resolving a special issue, please follow the branch naming convention mentioned above.
+  + Provide a detailed description of the bug in the PR. Live demo preferred.
+  + Add appropriate test coverage if applicable.
 
-## Configuración de desarrollo
+## Development Setup
 
-Necesitarás **Node**, preferentemente versión **12.18.2** o **posterior**.
+You will need **Node**, preferably versión **12.18.2** or later.
 
-Después de clonar el repositorio forkeado, sigue las instrucciones de desarrollo en [README.md](README.md)
+After cloning the repository, follow the development instructions in [README.md](README.md)
 
-### Escritura de commits
+### Committing Changes
 
-No esperamos ninguna convención estricta, pero agradeceríamos que resumieras de qué trata el contenido de tus modificaciones al escribir un commit.
+We don't expect any strict convention, but we'd be grateful if you summarize what your modifications content is about when writing a commit.
 
-## Estructura del proyecto
+## Project Structure
 
-- **`src/lib`**: `<DIR>` contiene los componentes que se exportan para utilización en otra aplicación.
-- **`src/index.js`**: `<FILE>` Archivo de ejemplo de uso de componentes
++ **`src/lib`**: `<DIR>` contains exported components to use in the host application
++ **`src/index.js`**: `<FILE>` component usage example
+
+## Attribution
+
+This Contributing Guidelines were adapted from the [Vue.js Contributing Guide][vue-js-contributing-guide].
+
+[vue-js-contributing-guide]: https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md
