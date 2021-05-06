@@ -172,8 +172,12 @@ const Api = (baseUrl) => {
     }
   };
 
-  const getDocToDownload = async function getDocToDownload(docId, fileName) {
-    const ENDPOINT_URL = `act/${docId}/getAnonymousDocument/`;
+  const getDocToDownload = async function getDocToDownload(
+    docId,
+    fileName,
+    taskId
+  ) {
+    const ENDPOINT_URL = `act/${docId}/getAnonymousDocument/?taskid=${taskId}`;
     try {
       const response = await requester.get(ENDPOINT_URL, {
         responseType: "blob",
