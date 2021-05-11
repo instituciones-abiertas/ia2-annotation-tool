@@ -21,7 +21,7 @@
     "axios": "^0.21.1",
     "file-saver": "^2.0.5",
     "react-redux": "^7.2.3",
-    "react-text-annotate": "git+https://github.com/Cambalab/react-text-annotate.git#master"
+    "react-text-annotate": "git+https://github.com/instituciones-abiertas/react-text-annotate.git#main"
   },
   "peerDependencies": {
     "react": "^16.8.0",
