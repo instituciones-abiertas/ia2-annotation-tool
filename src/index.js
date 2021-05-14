@@ -17,9 +17,7 @@ const App = () => {
      fontFamily: 'Saira-Regular',
      zoom: 1,
   }
-
-  const docId = 345;
-
+  
   const tags = [
     { id: 1, name: "PERSON", description: "Persona", should_anonimyzation: true, enable_multiple_selection: false },
     { id: 2, name: "LOC", description: "Persona", should_anonimyzation: false, enable_multiple_selection: false }
@@ -33,7 +31,6 @@ const App = () => {
 
   return (
       <Editor
-        docId={docId}
         style={style}
         annotations={annotations}
         tags={tags}

@@ -154,7 +154,6 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
   const handleUpdate = () => {
     onMultipleSelection(
       anonymizerState.newAnnotations,
-      anonymizerState.id,
       anonymizerState.deleteAnnotations,
       selectedTags.map(function (tagName) {
         return filteredTags.find((tag) => tag.name === tagName).id;

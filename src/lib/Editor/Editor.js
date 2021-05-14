@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const Editor = ({ docId, style, annotations, tags, text, multipleSelectionEnable, onMultipleSelection}) => {
+const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMultipleSelection}) => {
   const state = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -151,7 +151,7 @@ const Editor = ({ docId, style, annotations, tags, text, multipleSelectionEnable
             class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
           };
         })
-      dispatch(updateAnalysisSuccess({ents: annotationsMap, text: text, id: docId}));
+      dispatch(updateAnalysisSuccess({ents: annotationsMap, text: text}));
       dispatch(updateSelectTag(tags[0].name));
   }, [dispatch, annotations, tags, text]);
 
@@ -306,7 +306,7 @@ const Editor = ({ docId, style, annotations, tags, text, multipleSelectionEnable
   )
 }
 
-const WrappedEditor = ({ docId, style, annotations, tags, text, onAnnotationsChange, multipleSelectionEnable, onMultipleSelection}) => {
+const WrappedEditor = ({ style, annotations, tags, text, onAnnotationsChange, multipleSelectionEnable, onMultipleSelection}) => {
   const store = configuredStore();
 
   useEffect(() => {
@@ -333,7 +333,6 @@ const WrappedEditor = ({ docId, style, annotations, tags, text, onAnnotationsCha
   return (
     <Provider store={store}>
       <Editor
-        docId={docId}
         style={style}
         text={text}
         tags={tags}

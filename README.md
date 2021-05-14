@@ -66,6 +66,48 @@ Instructions is a visual component, similar to a header, that is placed above th
 | **`legends`**  | References to the coloured entities | `Array`  | `[{color: '#00D6A1', description: 'Anonymized' }, { color: '#ffca00', description: 'Not anonymized' }]` |
 | **`children`** | Children nodes to be rendered       | `Array`  | `<div><ul><li>I'm a child</li><li>I'm another child</li></ul></div>`                                    |
 
+### MultipleEntitiesSelector
+
+MultipleEntitiesSelector ia a visual a component that is redered into the ```Instruction``` component and allows to find all the ocurrencies of the curren selected annotations. It works by integrated it with the API action ```getAllOcurrenciesOf```.
+
+
+| Prop                      | Description                                                                                                                           | Type       | Example             |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- |
+| **`onMultipleSelection`** | Function that make the integration with the API  by receiving the list of new annotations, the deleted annotations, and a list of ids | `Function` | *See example below* |
+
+*Example of **function** to pass as **onMultipleSelection** prop:*
+
+```
+const onMultipleSelection = (
+  newAnnotations, 
+  deleteAnnotations, 
+  tagList,
+) => async => {  
+  try {
+    const docId = state.id
+    const response = await api.getAllOcurrenciesOf(
+      newAnnotations,
+      docId,
+      deleteAnnotations,
+      entityList
+    );
+    const mappedResponse = {
+      ...response,
+      ents: response.ents.map((ent) => {
+        return {
+          ...ent,
+          class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
+        };
+      }),
+    };
+    console.log(mappedResponse)
+  } catch (err) {
+     console.log(err)
+  }
+};
+```
+
+
 ### Api
 
 #### Props
@@ -76,6 +118,7 @@ Instructions is a visual component, similar to a header, that is placed above th
 
 #### Access functions to the IA² API
 
+<<<<<<< HEAD
 | Function                     | Description                                                  | Params                                                                                                                                                                                     | Response                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`userLogin`**              | Authenticates a user                                         | `{"email": "demo@mydomain.coop", "password": "123456"}`                                                                                                                                    | `{"refresh": "token", "access": "token"}`                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -88,7 +131,9 @@ Instructions is a visual component, similar to a header, that is placed above th
 | **`getDocToDownload`**       | Downloads an anonymized document                             |                                                                                                                                                                                            |
 | **`getDocPublishedToDrive`** | Publishes an anonymized document to Google Drive             |                                                                                                                                                                                            |
 | **`getDocPublished`**        | Publishes an anonymized document to Dropbox                  |                                                                                                                                                                                            |
-| **`selectSubject`**          | Tells the server what subject to use                         |                                                                                                                                                                                            |
+| **`selectSubject`**          | Tells the server what subject to use                         |
+|                              |
+| **`getAllOcurrenciesOf`**    | Find all the ocurrencies of the current selected annotations | `{"newOcurrencies":[{start: 22, end: 28, text: "Fallon", should_anonymized: true, human_marked_ocurrency: true, tag: "PER"}],"deleteOcurrencies":[], "entityList":[4]}`                    | `"text":"On Monday night, Mr. Fallon will have a co-host for the first time: The rapper Cardi B, who just released her first album, Invasion of Privacy. Fallon had got lot of audience that day.","ents":[{"id":10056,"start":22,"end":28,"tag":"PER","should_anonymized":true,"human_marked_ocurrency":true},{"id":10057,"start":145,"end":151,"tag":"PER","should_anonymized":true,"human_marked_ocurrency":true}],"id":390}`                     |
 | **`getHechoStats`**          | Return hecho stats                                           | `{"start": "2000-01-20", "end": "2001-01-20"}`                                                                                                                                             | `{"otros": 2 , "total": 5 , "violencia": 3 , "violencia_genero": 3}`                                                                                                                                                                                                                                                                                                                                                                                 |
 | **`getEdadStats`**           | Return edad stats                                            | `{"start": "2000-01-20", "end": "2001-01-20"}`                                                                                                                                             | `{"promedio_acusadx": 30 , "promedio_victima": 30}`                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **`getLugarStats`**          | Return lugar stats                                           | `{"start": "2000-01-20", "end": "2001-01-20"}`                                                                                                                                             | [`{"nombre": "John Doe" , "cantidad": 30}, {"nombre": "Jane Doe", "cantidad": 30}]`                                                                                                                                                                                                                                                                                                                                                                  |
@@ -110,6 +155,22 @@ Instructions is a visual component, similar to a header, that is placed above th
 | **`series`** | Data Series to show | `Array of Objects {name: "String", value: "Number"})` | `[{name:"Violecia", value:10}, { name: "violencia genero", value: 20 }]` |
 
 
+=======
+| Function                     | Description                                                  | Params                                                                                                                                                                                     | Response                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`userLogin`**              | Authenticates a user                                         | `{"email": "demo@mydomain.coop", "password": "123456"}`                                                                                                                                    | `{"refresh": "token", "access": "token"}`                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **`userLogout`**             | Terminates a user session                                    |                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **`refreshToken`**           | Renews a user session                                        | `{"refresh": "token"}`                                                                                                                                                                     | `{"access": "token"}`                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **`getSubjects`**            | Returns the available subjects                               |                                                                                                                                                                                            | `[{"name_subject": "Penal", "last_update": "2020-10-06T11:45:03.328000-03:00"}]`                                                                                                                                                                                                                                                                                                                                                                     |
+| **`getEntities`**            | Returns the available labeling entities                      |                                                                                                                                                                                            | `[{"id": 29, "name": "PER", "description": "Una persona", "should_anonimyzation": false, "enable_multiple_selection": false}]`                                                                                                                                                                                                                                                                                                                       |
+| **`getDocAnalysis`**         | Uploads a file and returns a list of detected entities       | `{ "file": <A valid file as a multipart request>}`                                                                                                                                         | `{"text": "On Monday night, Mr. Fallon will have a co-host for the first time: The rapper Cardi B, who just released her first album, Invasion of Privacy", "ents": [{"id": 420, "start": 17, "end": 26, "tag": "PER", "should_anonymized": true, "human_marked_ocurrency": false}], "id": 1}`                                                                                                                                                       |
+| **`getAnonymizedDoc`**       | Takes added and deleted annotations and returns new entities | `{"newOcurrencies": [{ "start": 27, "end": 33, "tag": "PER", "should_anonymized": true }], "deleteOcurrencies": [{ "start": 141, "end": 143, "tag": "MISC", "should_anonymized": true }]}` | `{"anonymous_text": "On Monday night, Mr. Fallon will have a co-host for the first time: The rapper Cardi B, who just released her first album, Invasion of Privacy", "data_visualization": {"entitiesResult": [{"id": 29, "name": "PER", "description": "Una persona", "should_anonimyzation": false, "enable_multiple_selection": false}], "total": {"model_total_ent": 63, "model_wrong_ent": 1, "human_total_ent": 2, "percent_total": 95.38}}}` |
+| **`getDocToDownload`**       | Downloads an anonymized document                             |                                                                                                                                                                                            |
+| **`getDocPublishedToDrive`** | Publishes an anonymized document to Google Drive             |                                                                                                                                                                                            |
+| **`getDocPublished`**        | Publishes an anonymized document to Dropbox                  |                                                                                                                                                                                            |
+| **`selectSubject`**          | Tells the server what subject to use                         |                                                                                                                                                                                            |
+| **`getAllOcurrenciesOf`**    | Find all the ocurrencies of the current selected annotations | `{"newOcurrencies":[{start: 22, end: 28, text: "Fallon", should_anonymized: true, human_marked_ocurrency: true, tag: "PER"}],"deleteOcurrencies":[], "entityList":[4]}`                    | `"text":"On Monday night, Mr. Fallon will have a co-host for the first time: The rapper Cardi B, who just released her first album, Invasion of Privacy. Fallon had got lot of audience that day.","ents":[{"id":10056,"start":22,"end":28,"tag":"PER","should_anonymized":true,"human_marked_ocurrency":true},{"id":10057,"start":145,"end":151,"tag":"PER","should_anonymized":true,"human_marked_ocurrency":true}],"id":390}`                     |
+>>>>>>> Change prop of MultipleEntitiesSelector and complete documentation
 
 ## Development
 
