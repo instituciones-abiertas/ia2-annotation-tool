@@ -47,6 +47,7 @@ npm install https://github.com/instituciones-abiertas/ia2-annotation-tool.git
 
 ### Editor
 
+<<<<<<< HEAD
 | Prop                      | Description                             | Type       | Example                                                                                                                                            |
 | ------------------------- | --------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`style`**               | Editor css styles                       | `Object`   | `{ backgroundColor: 'var(--contrast-color)', lineHeight: 2, fontSize: 'large', padding: '3em' }`                                                   |
@@ -54,6 +55,17 @@ npm install https://github.com/instituciones-abiertas/ia2-annotation-tool.git
 | **`tags`**                | Annotation tags/entities                | `Array`    | `[{ id: 1, name: 'PERSON', description: 'Una persona', should_anonimyzation: true, enable_multiple_selection: false }]`                            |
 | **`text`**                | Document Text                           | `String`   | `'On Monday night, Mr. Fallon will have a co-host for the first time: The rapper Cardi B, who just released her first album, Invasion of Privacy'` |
 | **`onAnnotationsChange`** | Function to acces the annotations state | `Function` | `(deleteAnnotations, newAnnotations) => console.log(deleteAnnotations, newAnnotations)`                                                            |
+=======
+| Prop                      | Description                             | Type        | Example                                                                                                                                             |
+| ------------------------- | --------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`style`**               | Editor css styles                       | `Object`    | `{ backgroundColor: 'var(--contrast-color)', lineHeight: 2, fontSize: 'large', padding: '3em' }`                                                    |
+| **`annotations`**         | Initial text annotations                | `Array`     | `[{ id: 1, start: 18, end: 28, tag: 'PERSON', should_anonymized: true, human_marked_ocurrency: false }]`                                            |
+| **`tags`**                | Annotation tags/entities                | `Array`     | `[{ id: 1, name: 'PERSON', description: 'Una persona', should_anonimyzation: true, enable_multiple_selection: false }]`                             |
+| **`text`**                | Document Text                           | `String`    | `'On Monday night, Mr. Fallon will have a co-host for the first time: The rapper Cardi B, who just released her first album, Invasion of Privacy'`  |
+| **`onAnnotationsChange`** | Function to acces the annotations state | `Function`  | `(deleteAnnotations, newAnnotations) => console.log(deleteAnnotations, newAnnotations)`|
+| **`multipleSelectionEnable`** | Boolean that indicates if the MultipleEntitiesSelector component is enabled | `Boolean`  |`True`|
+| **`onMultipleSelection`** | Function that make the integration with the API to execute ```getAllOcurrenciesOf``` action. | `Function`  | `Look an example into the description of the MultipleEntitiesSelector component.`                                                             |
+>>>>>>> Add documentation about Editor component
 
 ### Instructions
 
@@ -71,9 +83,15 @@ Instructions is a visual component, similar to a header, that is placed above th
 MultipleEntitiesSelector ia a visual a component that is redered into the ```Instruction``` component and allows to find all the ocurrencies of the curren selected annotations. It works by integrated it with the API action ```getAllOcurrenciesOf```.
 
 
+<<<<<<< HEAD
 | Prop                      | Description                                                                                                                           | Type       | Example             |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- |
 | **`onMultipleSelection`** | Function that make the integration with the API  by receiving the list of new annotations, the deleted annotations, and a list of ids | `Function` | *See example below* |
+=======
+| Prop                      | Description                             | Type        | Example                                                                                                                                             |
+| ------------------------- | --------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`onMultipleSelection`**               | Function that make the integration with the API to execute ```getAllOcurrenciesOf``` action.      | `Function` | *See example below*|
+>>>>>>> Add documentation about Editor component
 
 *Example of **function** to pass as **onMultipleSelection** prop:*
 
