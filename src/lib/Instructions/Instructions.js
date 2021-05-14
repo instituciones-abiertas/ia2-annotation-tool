@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) =>
       borderTopLeftRadius: theme.spacing(2),
     },
     textContainer: {
-      width: theme.spacing(70),
+      width: theme.spacing(45),
     },
     smallbox: {
       float: 'left',

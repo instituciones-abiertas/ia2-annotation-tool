@@ -57,6 +57,12 @@ const anonymizerSlice = createSlice({
     updateSelectTag: (state, action) => {
       state.selectTag = state.tags.find((tag) => tag.name === action.payload);
     },
+    clearNewAnnotations: (state) => {
+      state.newAnnotations = [];
+    },
+    clearDeleteAnnotations: (state) => {
+      state.deleteAnnotations = [];
+    },
   },
 });
 
@@ -71,6 +77,8 @@ export const {
   removeDeleteAnnotations,
   removeNewAnnotations,
   updateSelectTag,
+  clearNewAnnotations,
+  clearDeleteAnnotations,
 } = anonymizerSlice.actions;
 
 export default anonymizerSlice.reducer;
