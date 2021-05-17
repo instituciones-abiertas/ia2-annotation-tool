@@ -179,10 +179,14 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
         onClose={handleClose}
       >
         <DialogTitle>
-          Selecciona las etiquetas de las que quieres encontrar todas las
-          apariciones
+          Selecciona las etiquetas para comenzar la búsqueda de todas las ocurrencias
         </DialogTitle>
         <DialogContent>
+          <DialogContentText>
+            Esta funcionalidad ayuda a agilizar el proceso de selección de entidades que se repitan en el documento.
+            A través de esta acción serán detectadas todas las ocurrencias de cada una de las entidades actualmente marcadas.
+            <br>El proceso puede tomar tiempo.</br>
+          </DialogContentText>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
               <InputLabel id="mutiple-chip-label">
