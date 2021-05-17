@@ -67,10 +67,6 @@ const useStyles = makeStyles((theme) =>
         marginRight: theme.spacing(8),
         marginLeft: theme.spacing(8),
       },
-      [theme.breakpoints.down('sm')]: {
-        marginRight: theme.spacing(0),
-        marginLeft: theme.spacing(0),
-      },
     },
     selectInput: {
       display: 'flex',
@@ -121,16 +117,13 @@ const useStyles = makeStyles((theme) =>
     },
     root: {
       '& > *': {
-        marginBottom: theme.spacing(5),
+        marginBottom: theme.spacing(4),
         height: theme.spacing(50),
         [theme.breakpoints.down('lg')]: {
           height: theme.spacing(20),
         },
         [theme.breakpoints.down('md')]: {
-          height: theme.spacing(20),
-        },
-        [theme.breakpoints.down('sm')]: {
-          height: theme.spacing(20),
+          height: theme.spacing(16),
         },
       },
     },
