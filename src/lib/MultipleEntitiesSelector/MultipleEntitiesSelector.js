@@ -6,7 +6,7 @@ import {
   makeStyles,
   Select,
   MenuItem,
-  Typography,
+  DialogContentText,
   Dialog,
   DialogActions,
   DialogContent,
@@ -185,7 +185,7 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
           <DialogContentText>
             Esta funcionalidad ayuda a agilizar el proceso de selección de entidades que se repitan en el documento.
             A través de esta acción serán detectadas todas las ocurrencias de cada una de las entidades actualmente marcadas.
-            <br>El proceso puede tomar tiempo.</br>
+            El proceso puede tomar tiempo.
           </DialogContentText>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
