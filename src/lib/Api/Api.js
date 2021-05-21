@@ -222,18 +222,34 @@ const Api = (baseUrl) => {
     }
   }
 
+  const getApiStats = async function getApiStats(url) {
+    try {
+      const data = await requester.get(url);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        error.response.data.detail =
+          'Existe un problema de conexión en este momento. Intente Luego.';
+      }
+      throw error;
+    }
+  }
+
   return {
-    userLogin: userLogin,
-    userLogout: userLogout,
-    refreshToken: refreshToken,
-    getAnonymizedDoc: getAnonymizedDoc,
-    getDocAnalysis : getDocAnalysis,
-    getSubjects: getSubjects,
-    selectSubject: selectSubject,
-    getEntities: getEntities,
-    getDocToDownload: getDocToDownload,
-    getDocPublishedToDrive: getDocPublishedToDrive,
-    getDocPublished: getDocPublished,
+    userLogin,
+    userLogout,
+    refreshToken,
+    getAnonymizedDoc,
+    getDocAnalysis,
+    getSubjects,
+    selectSubject,
+    getEntities,
+    getDocToDownload,
+    getDocPublishedToDrive,
+    getDocPublished,
+    getHechoStats: () => getApiStats('/stats/hecho/'),
+    getLugarStats: () => getApiStats('/stats/lugar/'),
+    getEdadStats: () => getApiStats('/stats/edad/'),
   }
 };
 
