@@ -93,6 +93,22 @@ Instructions is a visual component, similar to a header, that is placed above th
 | **`getEdadStats`**           | Return edad stats                                            | `{"start": "2000-01-20", "end": "2001-01-20"}`                                                                                                                                              | `{"promedio_acusadx": 30 , "promedio_victima": 30}`
  | **`getLugarStats`**         | Return lugar stats                                            | `{"start": "2000-01-20", "end": "2001-01-20"}`                                                                                                                                              | [`{"nombre": "John Doe" , "cantidad": 30}, {"nombre": "Jane Doe", "cantidad": 30}]`
 
+### BarSeries
+| Prop            | Description                         | Type      | Example                                                                                                         |
+| --------------- | ----------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| **`title`**     | Graphic title              | `String`  | `'Promedio de Edades'`                                                                                              |
+| **`series`**    | Data Series to show           | `Array of Objects {name: "String", value: "Number"})`  | `[{name: "Acusadxs", value:20}, { name: "Victima", value: 20 }]`                                                              |
+| **`orientation`**   | Bars orientation | `oneOf("v","f")`   | `v` = vertical, `h`: horizontal         |
+
+
+### PieSeries
+| Prop            | Description                         | Type      | Example                                                                                                         |
+| --------------- | ----------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| **`title`**     | Graphic title              | `String`  | `'Cantidad de sentencias'`                                                                                              |
+| **`series`**    | Data Series to show           | `Array of Objects {name: "String", value: "Number"})`  | `[{name:"Violecia", value:10}, { name: "violencia genero", value: 20 }]`                                                              |
+
+
+
 ## Development
 
 ### Build as library
