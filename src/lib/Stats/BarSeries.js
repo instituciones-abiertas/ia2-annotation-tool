@@ -13,28 +13,28 @@ import {
   CanvasRenderer,
     // SVGRenderer,
 } from 'echarts/renderers';
-import { sequenceColor } from './colorPalette';
+import { sequenceColor, colorPalette } from './colorPalette';
 
 echarts.use(
   [TitleComponent, TooltipComponent, GridComponent, BarChart, CanvasRenderer, LegendComponent]
 );
 
-const BarSeries = ({ title, series, orientation }) => {
-	const data = series.map(item => item.name);
-	const serie = series.map((item, idx) => ({ value: item.value, itemStyle: {color: sequenceColor(idx) }}) );
+const BarSeries = ({ title, series, orientation, colors, textStyle }) => {
+  const data = series.map(item => item.name);
+  const serie = series.map((item, idx) => ({ value: item.value, itemStyle: {color: sequenceColor(idx, colors) }}) );
+  const axisData = { data }
+  const axisValue = { type: 'value' }
+  const chooseAxis = (orientation) => ({
+    "v": { xAxis: axisData, yAxis: axisValue },
+    "h": { xAxis: axisValue, yAxis: axisData },
+  })[orientation] || false;
+  const axis = chooseAxis(orientation)
 
-	const axisData = { data }
-	const axisValue = { type: 'value' }
-	const chooseAxis = (orientation) => ({
-		"v": { xAxis: axisData, yAxis: axisValue },
-		"h": { xAxis: axisValue, yAxis: axisData },
-	})[orientation] || false;
-	const axis = chooseAxis(orientation)
-
-	const option = {
+  const option = {
     title: {
       text: title,
-      x: "center"
+      x: "center",
+      textStyle,
     },
     tooltip: {
       trigger: "item",
@@ -43,30 +43,40 @@ const BarSeries = ({ title, series, orientation }) => {
 		xAxis: axis.xAxis,
     yAxis: axis.yAxis,
     series: [{
-        data: serie,
-        type: 'bar',
-				name: title,
-			}]
-	}
+      data: serie,
+      type: 'bar',
+      name: title,
+    }]
+  }
 
   return (
     <ReactEChartsCore
       echarts={echarts}
       option={option}
-		/>
+    />
   )
 }
 
 BarSeries.propTypes = {
-	title: PropTypes.string,
-	series:
-		PropTypes.arrayOf(
-			PropTypes.shape({
-				name: PropTypes.string,
-				value: PropTypes.number
-			})
-		),
-	orientation: PropTypes.oneOf(['v', 'f'])
+  title: PropTypes.string,
+  series:
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        value: PropTypes.number
+      })
+  ),
+  orientation: PropTypes.oneOf(['v', 'h']),
+  colors: PropTypes.array,
+  textStyle: PropTypes.object
+}
+
+BarSeries.defaultProps = {
+  colors: colorPalette,
+  title: '',
+  orientation: 'v',
+  series: [],
+  textStyle: {}
 }
 
 export default BarSeries;
