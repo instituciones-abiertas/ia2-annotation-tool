@@ -17,9 +17,9 @@ const Api = (baseUrl) => {
 
   const interceptorFn = (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   };
 
@@ -33,18 +33,18 @@ const Api = (baseUrl) => {
     async (error) => {
       const { status } = error.response;
       const originalRequest = error.config;
-    if (
-      status === AUTH_FORBIDDEN_ERROR &&
-      // eslint-disable-next-line no-underscore-dangle
-      !originalRequest._retry
-    ) {
-      // eslint-disable-next-line no-underscore-dangle
-      originalRequest._retry = true;
-      await refreshToken();
-      return requester(originalRequest);
-    }
-    throw error;
-  });
+      if (
+        status === AUTH_FORBIDDEN_ERROR &&
+        // eslint-disable-next-line no-underscore-dangle
+        !originalRequest._retry
+      ) {
+        // eslint-disable-next-line no-underscore-dangle
+        originalRequest._retry = true;
+        await refreshToken();
+        return requester(originalRequest);
+      }
+      throw error;
+    });
 
   const userLogin = async function (email, password) {
     try {
@@ -148,7 +148,7 @@ const Api = (baseUrl) => {
     }
   }
 
-  const selectSubject =  async function selectSubject(idSubject) {
+  const selectSubject = async function selectSubject(idSubject) {
     const ENDPOINT_URL = `subject/${idSubject}/useSubject/`;
     try {
       const { data } = await requester.post(ENDPOINT_URL);
@@ -194,7 +194,7 @@ const Api = (baseUrl) => {
     }
   }
 
-  const  getDocPublishedToDrive = async function getDocPublishedToDrive(docId) {
+  const getDocPublishedToDrive = async function getDocPublishedToDrive(docId) {
     const ENDPOINT_URL = `act/${docId}/publishDocumentInDrive/`;
     try {
       const data = await requester.post(ENDPOINT_URL);
@@ -225,8 +225,32 @@ const Api = (baseUrl) => {
   const getApiStats = async function getApiStats(url, start, end) {
     try {
       const params = { start, end };
-      const data = await requester.get(url, {params});
+      const data = await requester.get(url, { params });
       return data;
+    } catch (error) {
+      if (!error.response) {
+        error.response.data.detail =
+          'Existe un problema de conexión en este momento. Intente Luego.';
+      }
+      throw error;
+    }
+  }
+
+  const getAllOcurrenciesOf = async function getAllOcurrenciesOf(
+    newAnnotations,
+    docId,
+    deleteAnnotations,
+    entityList,
+  ) {
+    const ENDPOINT_URL = `/act/${docId}/addAllOccurrencies/`;
+    const params = {
+      newOcurrencies: newAnnotations,
+      deleteOcurrencies: deleteAnnotations,
+      entityList,
+    };
+    try {
+      const response = await requester.post(ENDPOINT_URL, params);
+      return response ? response.data : null;
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
@@ -251,6 +275,7 @@ const Api = (baseUrl) => {
     getHechoStats: (start, end) => getApiStats('/stats/hecho/', start, end),
     getLugarStats: (start, end) => getApiStats('/stats/lugar/', start, end),
     getEdadStats: (start, end) => getApiStats('/stats/edad/', start, end),
+    getAllOcurrenciesOf
   }
 };
 

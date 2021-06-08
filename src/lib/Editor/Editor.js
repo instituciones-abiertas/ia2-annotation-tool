@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import anonymizerReducer from './anonymizerSlice';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import Instructions from '../Instructions';
+import MultipleEntitiesSelector from '../MultipleEntitiesSelector';
 import styles from './Editor.module.css';
 import {
   selectAnonymizer,
@@ -66,10 +67,6 @@ const useStyles = makeStyles((theme) =>
         marginRight: theme.spacing(8),
         marginLeft: theme.spacing(8),
       },
-      [theme.breakpoints.down('sm')]: {
-        marginRight: theme.spacing(0),
-        marginLeft: theme.spacing(0),
-      },
     },
     selectInput: {
       display: 'flex',
@@ -111,6 +108,8 @@ const useStyles = makeStyles((theme) =>
       flexGrow: 1,
       marginRight: theme.spacing(2),
       alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
     },
     selectorIcon: {
       color: theme.palette.primary.main,
@@ -118,16 +117,13 @@ const useStyles = makeStyles((theme) =>
     },
     root: {
       '& > *': {
-        marginBottom: theme.spacing(5),
+        marginBottom: theme.spacing(4),
         height: theme.spacing(50),
         [theme.breakpoints.down('lg')]: {
-          height: theme.spacing(23),
+          height: theme.spacing(20),
         },
         [theme.breakpoints.down('md')]: {
-          height: theme.spacing(25),
-        },
-        [theme.breakpoints.down('sm')]: {
-          height: theme.spacing(20),
+          height: theme.spacing(16),
         },
       },
     },
@@ -135,7 +131,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const Editor = ({ style, annotations, tags, text}) => {
+const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMultipleSelection}) => {
   const state = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -153,6 +149,10 @@ const Editor = ({ style, annotations, tags, text}) => {
   }, [dispatch, annotations, tags, text]);
 
   const [selectedTag, setSelectedTag] = useState(tags[0]?.name);
+
+  const renderMultipleEntitiesSelector = () => {
+    return <MultipleEntitiesSelector onMultipleSelection={onMultipleSelection} />;
+  };
 
   const renderSelect = () => {
     return (
@@ -264,7 +264,10 @@ const Editor = ({ style, annotations, tags, text}) => {
             },
           ]}
         >
-          {renderSelect()}
+          <div className={classes.selectorContainer}>
+            {renderSelect()}
+            {multipleSelectionEnable && renderMultipleEntitiesSelector()}
+          </div>
         </Instructions>
         <div className={classes.root}>
           <Paper elevation={5}>
@@ -296,7 +299,7 @@ const Editor = ({ style, annotations, tags, text}) => {
   )
 }
 
-const WrappedEditor = ({style, annotations, tags, text, onAnnotationsChange}) => {
+const WrappedEditor = ({ style, annotations, tags, text, onAnnotationsChange, multipleSelectionEnable, onMultipleSelection}) => {
   const store = configuredStore();
 
   useEffect(() => {
@@ -327,6 +330,8 @@ const WrappedEditor = ({style, annotations, tags, text, onAnnotationsChange}) =>
         text={text}
         tags={tags}
         annotations={annotations}
+        multipleSelectionEnable={multipleSelectionEnable}
+        onMultipleSelection={onMultipleSelection}
       />
     </Provider>
   )
