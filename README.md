@@ -81,10 +81,10 @@ MultipleEntitiesSelector ia a visual a component that is redered into the ```Ins
 
 ```
 const onMultipleSelection = (
-  newAnnotations, 
-  deleteAnnotations, 
+  newAnnotations,
+  deleteAnnotations,
   tagList,
-) => async => {  
+) => async => {
   try {
     const docId = state.id
     const response = await api.getAllOcurrenciesOf(
@@ -146,6 +146,9 @@ const onMultipleSelection = (
 | **`title`**       | Graphic title       | `String`                                              | `'Promedio de Edades'`                                           |
 | **`series`**      | Data Series to show | `Array of Objects {name: "String", value: "Number"})` | `[{name: "Acusadxs", value:20}, { name: "Victima", value: 20 }]` |
 | **`orientation`** | Bars orientation    | `oneOf("v","f")`                                      | `v` = vertical, `h`: horizontal                                  |
+| **`colors`**     | Color Palette             | `Array`  | `'["#FF0000", "#00FF00", "#0000FF"]'`                                              |
+| **`textStyle`**  | Title text styles     | `Object`  | [Echarts TextStyle](https://echarts.apache.org/en/option.html#title.textStyle)    |
+
 
 
 ### PieSeries
@@ -153,6 +156,9 @@ const onMultipleSelection = (
 | ------------ | ------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------ |
 | **`title`**  | Graphic title       | `String`                                              | `'Cantidad de sentencias'`                                               |
 | **`series`** | Data Series to show | `Array of Objects {name: "String", value: "Number"})` | `[{name:"Violecia", value:10}, { name: "violencia genero", value: 20 }]` |
+| **`colors`**     | Color Palette             | `Array`  | `'["#FF0000", "#00FF00", "#0000FF"]'`                                              |
+| **`textStyle`**  | Title text styles     | `Object`  | [Echarts TextStyle](https://echarts.apache.org/en/option.html#title.textStyle)    |
+
 
 
 
