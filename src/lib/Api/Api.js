@@ -222,9 +222,10 @@ const Api = (baseUrl) => {
     }
   }
 
-  const getApiStats = async function getApiStats(url) {
+  const getApiStats = async function getApiStats(url, start, end) {
     try {
-      const data = await requester.get(url);
+      const params = { start, end };
+      const data = await requester.get(url, {params});
       return data;
     } catch (error) {
       if (!error.response) {
@@ -247,9 +248,9 @@ const Api = (baseUrl) => {
     getDocToDownload,
     getDocPublishedToDrive,
     getDocPublished,
-    getHechoStats: () => getApiStats('/stats/hecho/'),
-    getLugarStats: () => getApiStats('/stats/lugar/'),
-    getEdadStats: () => getApiStats('/stats/edad/'),
+    getHechoStats: (start, end) => getApiStats('/stats/hecho/', start, end),
+    getLugarStats: (start, end) => getApiStats('/stats/lugar/', start, end),
+    getEdadStats: (start, end) => getApiStats('/stats/edad/', start, end),
   }
 };
 
