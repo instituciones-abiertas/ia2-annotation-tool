@@ -1,32 +1,43 @@
-import axios from 'axios';
-import saveAs from 'file-saver';
-import {
-  ACCESS_TOKEN,
-  AUTH_FORBIDDEN_ERROR,
-  REFRESH_TOKEN,
-} from './constants';
+import axios from "axios";
+import saveAs from "file-saver";
+import { ACCESS_TOKEN, AUTH_FORBIDDEN_ERROR, REFRESH_TOKEN } from "./constants";
 
 const Api = (baseUrl) => {
-
   const requester = axios.create({
     baseURL: baseUrl,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-  })
+  });
 
   const interceptorFn = (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
+    const resultConfig = config;
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      resultConfig.headers.Authorization = `Bearer ${token}`;
     }
-    return config;
+    return resultConfig;
   };
 
-  requester.interceptors.request.use(
-    interceptorFn,
-    Promise.reject
-  );
+  requester.interceptors.request.use(interceptorFn, Promise.reject);
+
+  const refreshToken = async function refreshToken() {
+    const ENDPOINT_URL = `token/refresh/`;
+    try {
+      const response = await requester.post(ENDPOINT_URL, {
+        refresh: localStorage.getItem(REFRESH_TOKEN),
+      });
+      const { access } = response.data;
+      localStorage.setItem(ACCESS_TOKEN, access);
+      return Promise.resolve(access);
+    } catch (error) {
+      if (!error.response) {
+        error.response.data.detail =
+          "Existe un problema de conexión en este momento. Intente Luego.";
+      }
+      return Promise.reject(error);
+    }
+  };
 
   requester.interceptors.response.use(
     (response) => response,
@@ -44,9 +55,10 @@ const Api = (baseUrl) => {
         return requester(originalRequest);
       }
       throw error;
-    });
+    }
+  );
 
-  const userLogin = async function (email, password) {
+  const userLogin = async function userLogin(email, password) {
     try {
       const response = await requester.post(`token/`, {
         email,
@@ -58,7 +70,7 @@ const Api = (baseUrl) => {
       return response ? response.data : null;
     } catch (error) {
       if (!error.response) {
-        throw new Error('Existe un problema de conexión en este momento');
+        throw new Error("Existe un problema de conexión en este momento");
       }
       throw error.response.data;
     }
@@ -68,24 +80,6 @@ const Api = (baseUrl) => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
   };
-
-  const refreshToken = async function refreshToken() {
-    const ENDPOINT_URL = `token/refresh/`;
-    try {
-      const response = await requester.post(ENDPOINT_URL, {
-        refresh: localStorage.getItem(REFRESH_TOKEN),
-      });
-      const { access } = response.data;
-      localStorage.setItem(ACCESS_TOKEN, access);
-      return Promise.resolve(access);
-    } catch (error) {
-      if (!error.response) {
-        error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
-      }
-      return Promise.reject(error);
-    }
-  }
 
   const getAnonymizedDoc = async function getAnonymizedDoc(
     newAnnotations,
@@ -103,11 +97,11 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const blobToFile = (theBlob, fileName) => {
     return new File([theBlob], fileName, {
@@ -121,18 +115,18 @@ const Api = (baseUrl) => {
     const formData = new FormData();
     const blob = await fetch(doc).then((r) => r.blob());
     const file = blobToFile(blob, docName);
-    formData.append('file', file);
+    formData.append("file", file);
     try {
       const response = await requester.post(ENDPOINT_URL, formData);
       return response ? response.data : null;
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getSubjects = async function getSubjects() {
     const ENDPOINT_URL = `subject/`;
@@ -142,11 +136,11 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const selectSubject = async function selectSubject(idSubject) {
     const ENDPOINT_URL = `subject/${idSubject}/useSubject/`;
@@ -158,11 +152,11 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getEntities = async function getEntities() {
     const ENDPOINT_URL = `entity/`;
@@ -172,27 +166,27 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getDocToDownload = async function getDocToDownload(docId, fileName) {
     const ENDPOINT_URL = `act/${docId}/getAnonymousDocument/`;
     try {
       const response = await requester.get(ENDPOINT_URL, {
-        responseType: 'blob',
+        responseType: "blob",
       });
       saveAs(response.data, fileName);
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getDocPublishedToDrive = async function getDocPublishedToDrive(docId) {
     const ENDPOINT_URL = `act/${docId}/publishDocumentInDrive/`;
@@ -202,11 +196,11 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getDocPublished = async function getDocPublished(docId) {
     const ENDPOINT_URL = `act/${docId}/publishDocument/`;
@@ -216,11 +210,11 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getApiStats = async function getApiStats(url, start, end) {
     try {
@@ -230,17 +224,17 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   const getAllOcurrenciesOf = async function getAllOcurrenciesOf(
     newAnnotations,
     docId,
     deleteAnnotations,
-    entityList,
+    entityList
   ) {
     const ENDPOINT_URL = `/act/${docId}/addAllOccurrencies/`;
     const params = {
@@ -254,11 +248,11 @@ const Api = (baseUrl) => {
     } catch (error) {
       if (!error.response) {
         error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+          "Existe un problema de conexión en este momento. Intente Luego.";
       }
       throw error;
     }
-  }
+  };
 
   return {
     userLogin,
@@ -272,11 +266,11 @@ const Api = (baseUrl) => {
     getDocToDownload,
     getDocPublishedToDrive,
     getDocPublished,
-    getHechoStats: (start, end) => getApiStats('/stats/hecho/', start, end),
-    getLugarStats: (start, end) => getApiStats('/stats/lugar/', start, end),
-    getEdadStats: (start, end) => getApiStats('/stats/edad/', start, end),
-    getAllOcurrenciesOf
-  }
+    getHechoStats: (start, end) => getApiStats("/stats/hecho/", start, end),
+    getLugarStats: (start, end) => getApiStats("/stats/lugar/", start, end),
+    getEdadStats: (start, end) => getApiStats("/stats/edad/", start, end),
+    getAllOcurrenciesOf,
+  };
 };
 
 export default Api;

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import ReactEChartsCore from "echarts-for-react/lib/core";
-import * as echarts from 'echarts/core';
+import * as echarts from "echarts/core";
 import { PieChart } from "echarts/charts";
 import {
   GridComponent,
@@ -12,17 +12,25 @@ import {
 import {
   CanvasRenderer,
   // SVGRenderer,
-} from 'echarts/renderers';
+} from "echarts/renderers";
 
-import {sequenceColor, colorPalette } from './colorPalette'
+import { sequenceColor, colorPalette } from "./colorPalette";
 
-echarts.use(
-  [TitleComponent, TooltipComponent, GridComponent, PieChart, CanvasRenderer, LegendComponent]
-);
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  PieChart,
+  CanvasRenderer,
+  LegendComponent,
+]);
 
 const PieSeries = ({ title, series, colors, textStyle }) => {
-  const data = series.map(item => item.name)
-  const seriesColor = series.map((item, idx) => ({ ...item, itemStyle: { color: sequenceColor(idx, colors) }}) );
+  const data = series.map((item) => item.name);
+  const seriesColor = series.map((item, idx) => ({
+    ...item,
+    itemStyle: { color: sequenceColor(idx, colors) },
+  }));
   const option = {
     title: {
       text: title,
@@ -31,12 +39,12 @@ const PieSeries = ({ title, series, colors, textStyle }) => {
     },
     tooltip: {
       trigger: "item",
-      formatter: "{a} <br/>{b} : {c} ({d}%)"
+      formatter: "{a} <br/>{b} : {c} ({d}%)",
     },
     legend: {
       orient: "vertical",
       left: "left",
-      data: data
+      data,
     },
     series: [
       {
@@ -49,40 +57,33 @@ const PieSeries = ({ title, series, colors, textStyle }) => {
           itemStyle: {
             shadowBlur: 10,
             shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)"
-          }
-        }
-      }
-    ]
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
   };
 
-  return (
-    <ReactEChartsCore
-      echarts={echarts}
-      option={option}
-    />
-  )
-}
-
+  return <ReactEChartsCore echarts={echarts} option={option} />;
+};
 
 PieSeries.propTypes = {
   title: PropTypes.string,
-  series:
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string,
-        value: PropTypes.number
-      })
-    ),
-  colors: PropTypes.array,
-  textStyle: PropTypes.object
-}
+  series: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.number,
+    })
+  ),
+  colors: PropTypes.arrayOf(PropTypes.string),
+  textStyle: PropTypes.shape({}),
+};
 
 PieSeries.defaultProps = {
   colors: colorPalette,
-  title: '',
+  title: "",
   series: [],
-  textStyle: {}
-}
+  textStyle: {},
+};
 
 export default PieSeries;

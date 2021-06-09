@@ -3,5 +3,10 @@
     "react-app",
     "airbnb",
     "plugin:prettier/recommended"
-  ]
+  ],
+  "rules": {
+    "no-param-reassign": ["error", { props: true, ignorePropertyModificationsFor: ["state"] }],
+    "import/no-unresolved": [ 0 ],
+	"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+  }
 }

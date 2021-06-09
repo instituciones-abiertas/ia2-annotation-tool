@@ -1,2 +1,3 @@
 import Editor from "./Editor";
-export default  Editor;
+
+export default Editor;

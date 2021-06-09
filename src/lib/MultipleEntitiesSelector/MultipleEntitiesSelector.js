@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import {
   FormControl,
   createStyles,
@@ -15,13 +16,13 @@ import {
   InputLabel,
   Chip,
   useTheme,
-} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import {
   selectAnonymizer,
   clearDeleteAnnotations,
   clearNewAnnotations,
-} from '../Editor/anonymizerSlice';
+} from "../Editor/anonymizerSlice";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,11 +38,11 @@ const MenuProps = {
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: "flex",
     },
     chips: {
-      display: 'flex',
-      flexWrap: 'wrap',
+      display: "flex",
+      flexWrap: "wrap",
     },
     chip: {
       margin: 2,
@@ -50,26 +51,26 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(3),
     },
     container: {
-      display: 'flex',
-      flexWrap: 'wrap',
+      display: "flex",
+      flexWrap: "wrap",
     },
     formControl: {
       margin: theme.spacing(1),
-      width: '60%',
+      width: "60%",
     },
     selectInput: {
-      display: 'flex',
-      flexDirection: 'row',
+      display: "flex",
+      flexDirection: "row",
       backgroundColor: theme.palette.common.white,
       borderRadius: theme.spacing(10),
       color: theme.palette.secondary.main,
       padding: theme.spacing(1, 3),
-      fontSize: 'medium',
-      fontWeight: 'bold',
-      '&:hover, &:focus': {
+      fontSize: "medium",
+      fontWeight: "bold",
+      "&:hover, &:focus": {
         color: theme.palette.primary.main,
         borderRadius: theme.spacing(10),
-        backgroundColor: 'none',
+        backgroundColor: "none",
       },
     },
     selectIcon: {
@@ -77,19 +78,19 @@ const useStyles = makeStyles((theme) =>
       paddingRight: theme.spacing(2),
     },
     selector: {
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down("lg")]: {
         width: theme.spacing(30),
       },
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up("lg")]: {
         width: theme.spacing(50),
       },
     },
     tagDescription: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-      overflow: 'hidden',
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
     },
     tagTitle: {
       marginRight: theme.spacing(1),
@@ -97,21 +98,21 @@ const useStyles = makeStyles((theme) =>
     selectorContainer: {
       flexGrow: 1,
       marginRight: theme.spacing(2),
-      alignItems: 'center',
+      alignItems: "center",
     },
     selectorIcon: {
       color: theme.palette.primary.main,
       paddingRight: theme.spacing(1),
     },
     button: {
-      fontWeight: 'bold',
-      width: 'max-content',
+      fontWeight: "bold",
+      width: "max-content",
       borderRadius: theme.spacing(10),
       color: theme.palette.secondary.main,
       backgroundColor: theme.palette.primary.main,
       paddingRight: theme.spacing(2),
       paddingLeft: theme.spacing(2),
-      '&:hover': {
+      "&:hover": {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
       },
@@ -128,7 +129,7 @@ function getStyles(name, selectedTag, theme) {
   };
 }
 
-export default function MultipleEntitiesSelector({onMultipleSelection}) {
+export default function MultipleEntitiesSelector({ onMultipleSelection }) {
   const anonymizerState = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -137,7 +138,7 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
     (tag) => tag.enable_multiple_selection
   );
   const [open, setOpen] = useState(false);
-  const [selectedTags, setSelectedTags] = useState(['PER']);
+  const [selectedTags, setSelectedTags] = useState(["PER"]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -155,10 +156,10 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
     onMultipleSelection(
       anonymizerState.newAnnotations,
       anonymizerState.deleteAnnotations,
-      selectedTags.map(function (tagName) {
+      selectedTags.map((tagName) => {
         return filteredTags.find((tag) => tag.name === tagName).id;
-      }),
-    )
+      })
+    );
     dispatch(clearNewAnnotations());
     dispatch(clearDeleteAnnotations());
   };
@@ -179,13 +180,15 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
         onClose={handleClose}
       >
         <DialogTitle>
-          Selecciona las etiquetas para comenzar la búsqueda de todas las ocurrencias
+          Selecciona las etiquetas para comenzar la búsqueda de todas las
+          ocurrencias
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Esta funcionalidad ayuda a agilizar el proceso de selección de entidades que se repitan en el documento.
-            A través de esta acción serán detectadas todas las ocurrencias de cada una de las entidades actualmente marcadas.
-            El proceso puede tomar tiempo.
+            Esta funcionalidad ayuda a agilizar el proceso de selección de
+            entidades que se repitan en el documento. A través de esta acción
+            serán detectadas todas las ocurrencias de cada una de las entidades
+            actualmente marcadas. El proceso puede tomar tiempo.
           </DialogContentText>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
@@ -204,19 +207,17 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
                 id="mutiple-chip"
                 multiple
                 label="Standard"
-                value={selectedTags || 'Haz click para seleccionar'}
+                value={selectedTags || "Haz click para seleccionar"}
                 onChange={handleChange}
                 input={
-                  (
-                    <Input
-                      placeholder="Haz click para seleccionar"
-                      id="select-multiple-chip"
-                    />
-                  )
+                  <Input
+                    placeholder="Haz click para seleccionar"
+                    id="select-multiple-chip"
+                  />
                 }
                 renderValue={(selected) => (
                   <div className={classes.chips}>
-                    {(selected).map((value) => (
+                    {selected.map((value) => (
                       <Chip
                         key={value}
                         label={value}
@@ -252,3 +253,7 @@ export default function MultipleEntitiesSelector({onMultipleSelection}) {
     </div>
   );
 }
+
+MultipleEntitiesSelector.propTypes = {
+  onMultipleSelection: PropTypes.func.isRequired,
+};

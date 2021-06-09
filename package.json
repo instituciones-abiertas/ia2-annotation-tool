@@ -26,7 +26,8 @@
     "file-saver": "^2.0.5",
     "prop-types": "^15.7.2",
     "react-redux": "^7.2.3",
-    "react-text-annotate": "git+https://github.com/instituciones-abiertas/react-text-annotate.git#main"
+    "react-text-annotate": "git+https://github.com/instituciones-abiertas/react-text-annotate.git#main",
+    "redux": "^4.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",

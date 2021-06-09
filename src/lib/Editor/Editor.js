@@ -1,24 +1,9 @@
-import { TextAnnotator } from 'react-text-annotate';
-import React, {useState, useEffect} from 'react';
-import { Provider, useSelector, useDispatch } from 'react-redux';
-import { combineReducers } from 'redux';
-import anonymizerReducer from './anonymizerSlice';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import Instructions from '../Instructions';
-import MultipleEntitiesSelector from '../MultipleEntitiesSelector';
-import styles from './Editor.module.css';
-import {
-  selectAnonymizer,
-  updateAnnotations,
-  updateNewAnnotations,
-  updateDeleteAnnotations,
-  removeNewAnnotations,
-  removeDeleteAnnotations,
-  updateSelectTag,
-  updateTags,
-  updateAnalysisSuccess,
-} from './anonymizerSlice';
-
+import { TextAnnotator } from "react-text-annotate";
+import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import { combineReducers } from "redux";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   Select,
   FormControl,
@@ -28,13 +13,27 @@ import {
   makeStyles,
   Paper,
   Typography,
-} from '@material-ui/core';
+} from "@material-ui/core";
+import anonymizerReducer, {
+  selectAnonymizer,
+  updateAnnotations,
+  updateNewAnnotations,
+  updateDeleteAnnotations,
+  removeNewAnnotations,
+  removeDeleteAnnotations,
+  updateSelectTag,
+  updateTags,
+  updateAnalysisSuccess,
+} from "./anonymizerSlice";
+import Instructions from "../Instructions";
+import MultipleEntitiesSelector from "../MultipleEntitiesSelector";
+import styles from "./Editor.module.css";
 
 const createRootReducer = () => {
   return combineReducers({
-      anonymizer: anonymizerReducer,
+    anonymizer: anonymizerReducer,
   });
-}
+};
 
 const rootReducer = createRootReducer();
 const middleware = [...getDefaultMiddleware()];
@@ -52,32 +51,32 @@ export const configuredStore = (initialState) => {
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
       minWidth: theme.spacing(85),
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up("lg")]: {
         marginRight: theme.spacing(40),
         marginLeft: theme.spacing(40),
       },
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down("lg")]: {
         marginRight: theme.spacing(20),
         marginLeft: theme.spacing(20),
       },
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down("md")]: {
         marginRight: theme.spacing(8),
         marginLeft: theme.spacing(8),
       },
     },
     selectInput: {
-      display: 'flex',
-      flexDirection: 'row',
+      display: "flex",
+      flexDirection: "row",
       backgroundColor: theme.palette.common.white,
       borderRadius: theme.spacing(10),
       color: theme.palette.secondary.main,
       padding: theme.spacing(1, 3),
-      fontSize: 'medium',
-      fontWeight: 'bold',
-      '&:hover, &:focus': {
+      fontSize: "medium",
+      fontWeight: "bold",
+      "&:hover, &:focus": {
         color: theme.palette.primary.main,
         borderRadius: theme.spacing(10),
       },
@@ -87,19 +86,19 @@ const useStyles = makeStyles((theme) =>
       paddingRight: theme.spacing(2),
     },
     selector: {
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down("lg")]: {
         width: theme.spacing(30),
       },
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up("lg")]: {
         width: theme.spacing(50),
       },
     },
     tagDescription: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-      overflow: 'hidden',
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
     },
     tagTitle: {
       marginRight: theme.spacing(1),
@@ -107,22 +106,22 @@ const useStyles = makeStyles((theme) =>
     selectorContainer: {
       flexGrow: 1,
       marginRight: theme.spacing(2),
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'column',
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
     },
     selectorIcon: {
       color: theme.palette.primary.main,
       paddingRight: theme.spacing(1),
     },
     root: {
-      '& > *': {
+      "& > *": {
         marginBottom: theme.spacing(4),
         height: theme.spacing(50),
-        [theme.breakpoints.down('lg')]: {
+        [theme.breakpoints.down("lg")]: {
           height: theme.spacing(20),
         },
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down("md")]: {
           height: theme.spacing(16),
         },
       },
@@ -130,28 +129,41 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-
-const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMultipleSelection}) => {
+const Editor = ({
+  style,
+  annotations,
+  tags,
+  text,
+  multipleSelectionEnable,
+  onMultipleSelection,
+}) => {
   const state = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-      dispatch(updateTags(tags));
-      const annotationsMap = annotations.map((ent) => {
-          return {
-            ...ent,
-            class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
-          };
-        })
-      dispatch(updateAnalysisSuccess({ents: annotationsMap, text: text}));
-      dispatch(updateSelectTag(tags[0].name));
+    dispatch(updateTags(tags));
+    const annotationsMap = annotations.map((ent) => {
+      return {
+        ...ent,
+        class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
+      };
+    });
+    dispatch(updateAnalysisSuccess({ ents: annotationsMap, text }));
+    dispatch(updateSelectTag(tags[0].name));
   }, [dispatch, annotations, tags, text]);
 
   const [selectedTag, setSelectedTag] = useState(tags[0]?.name);
 
   const renderMultipleEntitiesSelector = () => {
-    return <MultipleEntitiesSelector onMultipleSelection={onMultipleSelection} />;
+    return (
+      <MultipleEntitiesSelector onMultipleSelection={onMultipleSelection} />
+    );
+  };
+
+  const handleTagSelection = (event) => {
+    dispatch(updateSelectTag(event.target.value));
+    setSelectedTag(event.target.value);
   };
 
   const renderSelect = () => {
@@ -165,11 +177,11 @@ const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMul
           value={selectedTag}
           onChange={(event) => handleTagSelection(event)}
           className={classes.selector}
-          defaultValue={""}
+          defaultValue=""
           color="secondary"
           classes={{ icon: classes.selectorIcon, select: classes.selectInput }}
           disableUnderline
-          style={{display: 'flex', alignSelf: 'flex-end', margin: '24px'}}
+          style={{ display: "flex", alignSelf: "flex-end", margin: "24px" }}
         >
           {state.tags.map((tag) => {
             return (
@@ -240,12 +252,6 @@ const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMul
     handleDelete(index, value);
   };
 
-  const handleTagSelection = (event) => {
-    dispatch(updateSelectTag(event.target.value));
-    setSelectedTag(event.target.value);
-  };
-
-
   return (
     <Box>
       <div className={classes.container}>
@@ -255,12 +261,14 @@ const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMul
           // Hardcodeados los colores y los textos, pensar si no hacer un servicio de backend,que brinde los colores y los textos
           legends={[
             {
-              color: '#00D6A1',
-              description: 'Anonimizar',
+              id: 1,
+              color: "#00D6A1",
+              description: "Anonimizar",
             },
             {
-              color: '#ffca00',
-              description: 'No anonimizar',
+              id: 2,
+              color: "#ffca00",
+              description: "No anonimizar",
             },
           ]}
         >
@@ -296,32 +304,61 @@ const Editor = ({ style, annotations, tags, text, multipleSelectionEnable, onMul
         </div>
       </div>
     </Box>
-  )
-}
+  );
+};
 
-const WrappedEditor = ({ style, annotations, tags, text, onAnnotationsChange, multipleSelectionEnable, onMultipleSelection}) => {
+Editor.propTypes = {
+  style: PropTypes.shape({}),
+  annotations: PropTypes.arrayOf(PropTypes.shape({})),
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      description: PropTypes.string,
+      should_anonimyzation: PropTypes.bool,
+    })
+  ),
+  text: PropTypes.string.isRequired,
+  multipleSelectionEnable: PropTypes.bool,
+  onMultipleSelection: PropTypes.func,
+};
+
+Editor.defaultProps = {
+  style: {},
+  annotations: [],
+  tags: [],
+  multipleSelectionEnable: false,
+  onMultipleSelection: () => true,
+};
+
+const WrappedEditor = ({
+  style,
+  annotations,
+  tags,
+  text,
+  onAnnotationsChange,
+  multipleSelectionEnable,
+  onMultipleSelection,
+}) => {
   const store = configuredStore();
 
   useEffect(() => {
     const subscribeAnnotations = () => {
-      let currentD, currentNa;
+      let currentD;
+      let currentNa;
       return store.subscribe(() => {
-        let prevD = currentD
-        let prevNa = currentNa
-        currentNa =  store.getState().anonymizer.newAnnotations
-        currentD = store.getState().anonymizer.deleteAnnotations
-        if(prevD !== currentD || prevNa !== currentNa ) {
-          onAnnotationsChange(
-            currentD,
-            currentNa
-          );
+        const prevD = currentD;
+        const prevNa = currentNa;
+        currentNa = store.getState().anonymizer.newAnnotations;
+        currentD = store.getState().anonymizer.deleteAnnotations;
+        if (prevD !== currentD || prevNa !== currentNa) {
+          onAnnotationsChange(currentD, currentNa);
         }
-      })
-    }
-    const unsubscribe = subscribeAnnotations()
-    return () => unsubscribe()
-  }, [onAnnotationsChange, store])
-
+      });
+    };
+    const unsubscribe = subscribeAnnotations();
+    return () => unsubscribe();
+  }, [onAnnotationsChange, store]);
 
   return (
     <Provider store={store}>
@@ -334,7 +371,33 @@ const WrappedEditor = ({ style, annotations, tags, text, onAnnotationsChange, mu
         onMultipleSelection={onMultipleSelection}
       />
     </Provider>
-  )
-}
+  );
+};
+
+WrappedEditor.propTypes = {
+  style: PropTypes.shape({}),
+  annotations: PropTypes.arrayOf(PropTypes.shape({})),
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      description: PropTypes.string,
+      should_anonimyzation: PropTypes.bool,
+    })
+  ),
+  text: PropTypes.string.isRequired,
+  onAnnotationsChange: PropTypes.func,
+  multipleSelectionEnable: PropTypes.bool,
+  onMultipleSelection: PropTypes.func,
+};
+
+WrappedEditor.defaultProps = {
+  style: {},
+  annotations: [],
+  tags: [],
+  multipleSelectionEnable: false,
+  onMultipleSelection: () => true,
+  onAnnotationsChange: () => true,
+};
 
 export default WrappedEditor;

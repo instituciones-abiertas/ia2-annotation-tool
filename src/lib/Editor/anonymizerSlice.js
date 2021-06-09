@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const anonymizerSlice = createSlice({
-  name: 'anonymizer',
+  name: "anonymizer",
   initialState: {
     id: 0,
-    text: '',
+    text: "",
     annotations: [],
     newAnnotations: [],
     deleteAnnotations: [],
@@ -12,8 +12,8 @@ const anonymizerSlice = createSlice({
     tags: [
       {
         id: 3,
-        name: 'LOC',
-        description: 'Es una localización',
+        name: "LOC",
+        description: "Es una localización",
         should_anonimyzation: true,
       },
     ],
@@ -44,13 +44,13 @@ const anonymizerSlice = createSlice({
     },
     removeNewAnnotations: (state, action) => {
       state.newAnnotations = state.newAnnotations.filter(
-        //Only necessary check start
+        // Only necessary check start
         (item) => item.start !== action.payload.start
       );
     },
     removeDeleteAnnotations: (state, action) => {
       state.deleteAnnotations = state.deleteAnnotations.filter(
-        //Only necessary check start
+        // Only necessary check start
         (item) => item.start !== action.payload.start
       );
     },
