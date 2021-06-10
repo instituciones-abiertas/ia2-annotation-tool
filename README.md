@@ -164,6 +164,12 @@ const onMultipleSelection = (
 
 ## Development
 
+### Installl
+
+```bash
+npm install
+```
+
 ### Build as library
 
 ```bash
