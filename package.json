@@ -12,8 +12,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "build": "rimraf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
-    "prepare": "npm run build",
-    "lint": "eslint './src/**/*.{js,jsx}'",
+    "prepare": "npm run build && husky install",
+    "lint": "eslint --cache './src/**/*.{js,jsx}'",
     "lint-fix": "npm run lint -- --fix; exit 0"
   },
   "dependencies": {
@@ -45,6 +45,8 @@
     "eslint-loader": "^4.0.2",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -62,5 +64,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
