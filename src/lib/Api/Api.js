@@ -258,19 +258,20 @@ const Api = (baseUrl) => {
     }
   };
 
-  const checkStatusDownloadDocument = async function checkStatusDownloadDocument(docId, taskId) {
-    const ENDPOINT_URL = `act/${docId}/getStatusDocument/?taskid=${taskId}`;
-    try {
-      const data = await requester.get(ENDPOINT_URL);
-      return data;
-    } catch (error) {
-      if (!error.response) {
-        error.response.data.detail =
-          'Existe un problema de conexión en este momento. Intente Luego.';
+  const checkStatusDownloadDocument =
+    async function checkStatusDownloadDocument(docId, taskId) {
+      const ENDPOINT_URL = `act/${docId}/getStatusDocument/?taskid=${taskId}`;
+      try {
+        const data = await requester.get(ENDPOINT_URL);
+        return data;
+      } catch (error) {
+        if (!error.response) {
+          error.response.data.detail =
+            "Existe un problema de conexión en este momento. Intente Luego.";
+        }
+        throw error;
       }
-      throw error;
-    }
-  }
+    };
 
   return {
     userLogin,
