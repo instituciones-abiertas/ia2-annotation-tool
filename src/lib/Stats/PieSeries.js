@@ -25,12 +25,21 @@ echarts.use([
   LegendComponent,
 ]);
 
-const PieSeries = ({ title, series, colors, textStyle }) => {
+const PieSeries = ({ title, series, colors, textStyle, showLegend }) => {
   const data = series.map((item) => item.name);
   const seriesColor = series.map((item, idx) => ({
     ...item,
     itemStyle: { color: sequenceColor(idx, colors) },
   }));
+
+  const legend = {
+    legend: {
+      orient: "vertical",
+      left: "left",
+      data,
+    },
+  };
+
   const option = {
     title: {
       text: title,
@@ -41,11 +50,7 @@ const PieSeries = ({ title, series, colors, textStyle }) => {
       trigger: "item",
       formatter: "{a} <br/>{b} : {c} ({d}%)",
     },
-    legend: {
-      orient: "vertical",
-      left: "left",
-      data,
-    },
+    ...(showLegend && legend),
     series: [
       {
         name: title,
@@ -77,6 +82,7 @@ PieSeries.propTypes = {
   ),
   colors: PropTypes.arrayOf(PropTypes.string),
   textStyle: PropTypes.shape({}),
+  showLegend: PropTypes.bool,
 };
 
 PieSeries.defaultProps = {
@@ -84,6 +90,7 @@ PieSeries.defaultProps = {
   title: "",
   series: [],
   textStyle: {},
+  showLegend: false,
 };
 
 export default PieSeries;
