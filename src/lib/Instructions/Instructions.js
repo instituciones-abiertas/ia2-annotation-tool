@@ -1,7 +1,8 @@
-import React  from 'react';
-import InfoIcon from '@material-ui/icons/InfoRounded';
-import { Paper, Typography, Box } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import InfoIcon from "@material-ui/icons/InfoRounded";
+import { Paper, Typography, Box } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -11,33 +12,33 @@ const useStyles = makeStyles((theme) =>
       paddingTop: theme.spacing(10),
     },
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      '& > *': {
+      display: "flex",
+      flexWrap: "wrap",
+      "& > *": {
         marginBottom: theme.spacing(5),
-        '@media (max-width:780px)': { height: theme.spacing(10) },
-        '@media (min-width:780px)': { height: theme.spacing(20) },
-        '@media (min-width:1024px)': { height: theme.spacing(30) },
-        '@media (min-width:1920px)': { height: theme.spacing(60) },
+        "@media (max-width:780px)": { height: theme.spacing(10) },
+        "@media (min-width:780px)": { height: theme.spacing(20) },
+        "@media (min-width:1024px)": { height: theme.spacing(30) },
+        "@media (min-width:1920px)": { height: theme.spacing(60) },
       },
     },
     title: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       paddingTop: theme.spacing(1.5),
       paddingBottom: theme.spacing(0.5),
     },
     instructionsIcon: {
       padding: theme.spacing(3),
-      alignSelf: 'flex-start',
-      paddingTop: theme.spacing(1)
+      alignSelf: "flex-start",
+      paddingTop: theme.spacing(1),
     },
     instructions: {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.common.white,
-      display: 'flex',
-      flexDirection: 'row',
+      display: "flex",
+      flexDirection: "row",
       fontFamily: theme.typography.fontFamily,
-      alignItems: 'center',
+      alignItems: "center",
       borderTopRightRadius: theme.spacing(2),
       borderTopLeftRadius: theme.spacing(2),
     },
@@ -45,25 +46,24 @@ const useStyles = makeStyles((theme) =>
       width: theme.spacing(45),
     },
     smallbox: {
-      float: 'left',
-      width: '10px',
-      height: '10px',
-      marginTop: '5px',
-      marginBottom: '5px',
-      marginRight: '5px',
-      border: '1px solid rgba(0, 0, 0, 0.2)',
+      float: "left",
+      width: "10px",
+      height: "10px",
+      marginTop: "5px",
+      marginBottom: "5px",
+      marginRight: "5px",
+      border: "1px solid rgba(0, 0, 0, 0.2)",
     },
     legendsBox: {
-      display: 'flex',
-      backgroundColor: 'transparent',
-      marginTop: '0.7rem',
-      marginBottom: '0.7rem',
-      justifyContent: 'flex-start',
-      width: '70%',
+      display: "flex",
+      backgroundColor: "transparent",
+      marginTop: "0.7rem",
+      marginBottom: "0.7rem",
+      justifyContent: "flex-start",
+      width: "70%",
     },
   })
 );
-
 
 export default function Instructions(props) {
   const classes = useStyles();
@@ -86,12 +86,16 @@ export default function Instructions(props) {
           <Box className={classes.legendsBox}>
             {legends.map((legend, index) => {
               return (
-                <Typography key={index} component="span" style={{display: 'flex', alignItems: 'center'}}>
+                <Typography
+                  key={legend.id}
+                  component="span"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   <span
                     className={classes.smallbox}
                     style={{
                       backgroundColor: legend.color,
-                      marginLeft: index !== 0 ? '5px' : '0px'
+                      marginLeft: index !== 0 ? "5px" : "0px",
                     }}
                   />
                   <Typography variant="caption">
@@ -108,6 +112,21 @@ export default function Instructions(props) {
   );
 }
 
+Instructions.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  legends: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      color: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ),
+  children: PropTypes.node,
+};
+
 Instructions.defaultProps = {
+  subtitle: "",
+  legends: [],
   children: null,
 };
