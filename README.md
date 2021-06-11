@@ -158,8 +158,7 @@ const onMultipleSelection = (
 | **`series`** | Data Series to show | `Array of Objects {name: "String", value: "Number"})` | `[{name:"Violecia", value:10}, { name: "violencia genero", value: 20 }]` |
 | **`colors`**     | Color Palette             | `Array`  | `'["#FF0000", "#00FF00", "#0000FF"]'`                                              |
 | **`textStyle`**  | Title text styles     | `Object`  | [Echarts TextStyle](https://echarts.apache.org/en/option.html#title.textStyle)    |
-
-
+| **`showLegend`**  | Show Pie legend      | `Bool`    |  `true` or `false`  |
 
 
 ## Development
