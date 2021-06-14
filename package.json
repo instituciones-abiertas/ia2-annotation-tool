@@ -1,6 +1,28 @@
 {
-  "name": "ia2-annotation-tool",
-  "version": "0.0.1",
+  "name": "@ia2coop/ia2-annotation-tool",
+  "version": "0.0.0",
+  "description": "Annotation tool components library for IA² Project",
+  "homepage": "https://github.com/instituciones-abiertas/ia2-annotation-tool#readme",
+  "bugs": {
+    "url" : "https://github.com/instituciones-abiertas/ia2-annotation-tool/issues",
+    "email" : "info@ia2.coop"
+  },
+  "author": {
+    "name": "IA² Team",
+    "email": "info@ia2.coop",
+    "url": "https://www.ia2.coop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/instituciones-abiertas/ia2-annotation-tool.git"
+  },
+  "keywords": [
+    "reactjs",
+    "react",
+    "annotation",
+    "IA²"
+  ],
+  "license": "GPL-3.0-only",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
