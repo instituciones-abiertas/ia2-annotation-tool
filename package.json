@@ -1,11 +1,11 @@
 {
   "name": "@ia2coop/ia2-annotation-tool",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Annotation tool components library for IA² Project",
   "homepage": "https://github.com/instituciones-abiertas/ia2-annotation-tool#readme",
   "bugs": {
-    "url" : "https://github.com/instituciones-abiertas/ia2-annotation-tool/issues",
-    "email" : "info@ia2.coop"
+    "url": "https://github.com/instituciones-abiertas/ia2-annotation-tool/issues",
+    "email": "info@ia2.coop"
   },
   "author": {
     "name": "IA² Team",
