@@ -180,20 +180,19 @@ export default function MultipleEntitiesSelector({ onMultipleSelection }) {
         onClose={handleClose}
       >
         <DialogTitle>
-          Selecciona las etiquetas para comenzar la búsqueda de todas las
-          ocurrencias
+          Selección múltiple de entidades etiquetadas
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Esta funcionalidad ayuda a agilizar el proceso de selección de
-            entidades que se repitan en el documento. A través de esta acción
-            serán detectadas todas las ocurrencias de cada una de las entidades
-            actualmente marcadas. El proceso puede tomar tiempo.
+            Esta funcionalidad agiliza el proceso de selección de entidades que se repiten en el documento.
+            Mediante esta acción serán detectadas todas las ocurrencias de cada una de las entidades actualmente etiquetadas. 
+            Sólo se buscarán las entidades que sean parte de las categorías que seleccione.
+            Considere que es una búsqueda literal del texto de las entidades etiquetadas.
           </DialogContentText>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
               <InputLabel id="mutiple-chip-label">
-                Etiquetas seleccionadas
+                Categorías seleccionadas
               </InputLabel>
               <Select
                 className={classes.selector}
@@ -242,11 +241,11 @@ export default function MultipleEntitiesSelector({ onMultipleSelection }) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Atrás
-          </Button>
           <Button onClick={handleUpdate} color="primary">
             Buscar todas
+          </Button>
+          <Button onClick={handleClose} color="secondary">
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>
