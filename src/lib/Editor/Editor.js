@@ -27,6 +27,7 @@ import anonymizerReducer, {
 } from "./anonymizerSlice";
 import Instructions from "../Instructions";
 import MultipleEntitiesSelector from "../MultipleEntitiesSelector";
+import EntitiesSelector from "../EntitiesSelector";
 import styles from "./Editor.module.css";
 
 const createRootReducer = () => {
@@ -126,6 +127,16 @@ const useStyles = makeStyles((theme) =>
         },
       },
     },
+    chip: {
+      margin: theme.spacing(0.5),
+    },
+    chipRoot: {
+      display: "flex",
+      justifyContent: "center",
+      flexWrap: "wrap",
+      listStyle: "none",
+      padding: theme.spacing(0.5),
+    },
   })
 );
 
@@ -161,9 +172,23 @@ const Editor = ({
     );
   };
 
+  const onChange = (value) => {
+    dispatch(updateSelectTag(value));
+    setSelectedTag(value);
+  };
+
   const handleTagSelection = (event) => {
-    dispatch(updateSelectTag(event.target.value));
-    setSelectedTag(event.target.value);
+    onChange(event.target.value);
+  };
+
+  const renderChips = () => {
+    return (
+      <EntitiesSelector
+        entities={state.tags}
+        selected={1}
+        onChange={onChange}
+      />
+    );
   };
 
   const renderSelect = () => {
@@ -273,6 +298,7 @@ const Editor = ({
           ]}
         >
           <div className={classes.selectorContainer}>
+            {renderChips()}
             {renderSelect()}
             {multipleSelectionEnable && renderMultipleEntitiesSelector()}
           </div>

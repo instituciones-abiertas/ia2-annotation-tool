@@ -45,6 +45,7 @@
     "echarts": "^5.1.1",
     "echarts-for-react": "^3.0.1",
     "file-saver": "^2.0.5",
+    "mousetrap": "^1.6.5",
     "prop-types": "^15.7.2",
     "react-redux": "^7.2.3",
     "react-text-annotate": "git+https://github.com/instituciones-abiertas/react-text-annotate.git#main",
