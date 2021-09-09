@@ -280,6 +280,7 @@ const Editor = ({
         <div className={classes.root}>
           <Paper elevation={5}>
             <TextAnnotator
+              tabIndex={0}
               editableContent
               doubleTaggingOff
               style={style}
