@@ -1,4 +1,4 @@
-import { TextAnnotator } from "react-text-annotate";
+import { TextAnnotator } from "@ia2coop/ia2-react-text-annotate";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { Provider, useSelector, useDispatch } from "react-redux";

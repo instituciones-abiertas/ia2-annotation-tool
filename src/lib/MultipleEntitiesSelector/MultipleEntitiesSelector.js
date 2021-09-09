@@ -179,15 +179,15 @@ export default function MultipleEntitiesSelector({ onMultipleSelection }) {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>
-          Selección múltiple de entidades etiquetadas
-        </DialogTitle>
+        <DialogTitle>Selección múltiple de entidades etiquetadas</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Esta funcionalidad agiliza el proceso de selección de entidades que se repiten en el documento.
-            Mediante esta acción serán detectadas todas las ocurrencias de cada una de las entidades actualmente etiquetadas. 
-            Sólo se buscarán las entidades que sean parte de las categorías que seleccione.
-            Considere que es una búsqueda literal del texto de las entidades etiquetadas.
+            Esta funcionalidad agiliza el proceso de selección de entidades que
+            se repiten en el documento. Mediante esta acción serán detectadas
+            todas las ocurrencias de cada una de las entidades actualmente
+            etiquetadas. Sólo se buscarán las entidades que sean parte de las
+            categorías que seleccione. Considere que es una búsqueda literal del
+            texto de las entidades etiquetadas.
           </DialogContentText>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>

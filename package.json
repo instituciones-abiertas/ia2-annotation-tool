@@ -2,7 +2,6 @@
   "name": "@ia2coop/ia2-annotation-tool",
   "version": "1.2.1",
   "description": "Annotation tool components library for IA² Project",
-  "homepage": "https://github.com/instituciones-abiertas/ia2-annotation-tool#readme",
   "bugs": {
     "url": "https://github.com/instituciones-abiertas/ia2-annotation-tool/issues",
     "email": "info@ia2.coop"
@@ -48,7 +47,7 @@
     "file-saver": "^2.0.5",
     "prop-types": "^15.7.2",
     "react-redux": "^7.2.3",
-    "react-text-annotate": "git+https://github.com/instituciones-abiertas/react-text-annotate.git#main",
+    "@ia2coop/ia2-react-text-annotate": "^1.2.2",
     "redux": "^4.1.0"
   },
   "peerDependencies": {
