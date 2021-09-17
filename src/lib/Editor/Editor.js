@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { combineReducers } from "redux";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { ActionCreators as UndoActionCreators } from "redux-undo";
 import {
   Select,
   FormControl,
@@ -13,7 +14,10 @@ import {
   makeStyles,
   Paper,
   Typography,
+  IconButton,
 } from "@material-ui/core";
+import RedoIcon from "@material-ui/icons/Redo";
+import UndoIcon from "@material-ui/icons/Undo";
 import anonymizerReducer, {
   selectAnonymizer,
   updateAnnotations,
@@ -126,6 +130,19 @@ const useStyles = makeStyles((theme) =>
         },
       },
     },
+    rightActions: {
+      right: 0,
+      position: "absolute",
+      [theme.breakpoints.up("lg")]: {
+        transform: "translateX(-350px)",
+      },
+      [theme.breakpoints.down("lg")]: {
+        transform: "translateX(-190px)",
+      },
+      [theme.breakpoints.down("md")]: {
+        transform: "translateX(-50px)",
+      },
+    },
   })
 );
 
@@ -137,7 +154,7 @@ const Editor = ({
   multipleSelectionEnable,
   onMultipleSelection,
 }) => {
-  const state = useSelector(selectAnonymizer);
+  const { present, future, past } = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -166,6 +183,30 @@ const Editor = ({
     setSelectedTag(event.target.value);
   };
 
+  const onUndo = () => {
+    dispatch(UndoActionCreators.undo());
+  };
+
+  const onRedo = () => {
+    dispatch(UndoActionCreators.redo());
+  };
+
+  const renderUndoRedo = () => {
+    const dispatchPrevios = 3;
+    const canUndo = past.length > dispatchPrevios;
+    const canRedo = future.length > 0;
+    return (
+      <Box className={classes.rightActions}>
+        <IconButton aria-label="undo" onClick={onUndo} disabled={!canUndo}>
+          <UndoIcon />
+        </IconButton>
+        <IconButton aria-label="redo" onClick={onRedo} disabled={!canRedo}>
+          <RedoIcon />
+        </IconButton>
+      </Box>
+    );
+  };
+
   const renderSelect = () => {
     return (
       <FormControl className={classes.selectorContainer} color="secondary">
@@ -183,7 +224,7 @@ const Editor = ({
           disableUnderline
           style={{ display: "flex", alignSelf: "flex-end", margin: "24px" }}
         >
-          {state.tags.map((tag) => {
+          {present.tags.map((tag) => {
             return (
               <MenuItem key={tag.id} value={tag.name} id={tag.id}>
                 <Typography
@@ -211,7 +252,7 @@ const Editor = ({
   const handleEntitySelection = (value, span) => {
     // Check if annotations exist in deleteAnnotations array
     if (
-      state.deleteAnnotations.some(
+      present.deleteAnnotations.some(
         (annot) =>
           annot.start === span.start &&
           annot.end === span.end &&
@@ -220,7 +261,7 @@ const Editor = ({
     ) {
       // Remove a delete annotation and update annotations by show in editor
       dispatch(removeDeleteAnnotations(span));
-      dispatch(updateAnnotations([...state.annotations.concat([span])]));
+      dispatch(updateAnnotations([...present.annotations.concat([span])]));
     } else {
       // Update new annotations by show in editor
       dispatch(updateNewAnnotations([span]));
@@ -230,18 +271,18 @@ const Editor = ({
   const handleDelete = (index, value) => {
     // Check if annotations exist in newAnnotations array
     if (
-      state.newAnnotations.some(
+      present.newAnnotations.some(
         (annot) => annot.start === value.start && annot.end === value.end
       )
     ) {
       dispatch(removeNewAnnotations(value));
     } else {
       // Add a delete annotation and update annotations by don't show in editor
-      dispatch(updateDeleteAnnotations([state.annotations[index]]));
+      dispatch(updateDeleteAnnotations([present.annotations[index]]));
       dispatch(
         updateAnnotations([
-          ...state.annotations.slice(0, index),
-          ...state.annotations.slice(index + 1),
+          ...present.annotations.slice(0, index),
+          ...present.annotations.slice(index + 1),
         ])
       );
     }
@@ -278,21 +319,22 @@ const Editor = ({
           </div>
         </Instructions>
         <div className={classes.root}>
+          {renderUndoRedo()}
           <Paper elevation={5}>
             <TextAnnotator
               tabIndex={0}
               editableContent
               doubleTaggingOff
               style={style}
-              content={state.text}
-              value={state.annotations.concat(state.newAnnotations)}
+              content={present.text}
+              value={present.annotations.concat(present.newAnnotations)}
               onChange={(value, span) => handleEntitySelection(value, span)}
               getSpan={(span) => ({
                 ...span,
-                should_anonymized: state.selectTag.should_anonimyzation,
+                should_anonymized: present.selectTag.should_anonimyzation,
                 human_marked_ocurrency: true,
                 tag: selectedTag,
-                class: state.selectTag.should_anonimyzation
+                class: present.selectTag.should_anonimyzation
                   ? styles.anonymousmark
                   : styles.mark,
               })}

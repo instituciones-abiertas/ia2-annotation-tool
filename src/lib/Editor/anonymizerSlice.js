@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import undoable from "redux-undo";
 
 const anonymizerSlice = createSlice({
   name: "anonymizer",
@@ -81,6 +82,6 @@ export const {
   clearDeleteAnnotations,
 } = anonymizerSlice.actions;
 
-export default anonymizerSlice.reducer;
+export default undoable(anonymizerSlice.reducer);
 
 export const selectAnonymizer = (state) => state.anonymizer;
