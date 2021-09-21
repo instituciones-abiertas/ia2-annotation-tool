@@ -137,10 +137,10 @@ const useStyles = makeStyles((theme) =>
         transform: "translateX(-350px)",
       },
       [theme.breakpoints.down("lg")]: {
-        transform: "translateX(-190px)",
+        transform: "translateX(-230px)",
       },
       [theme.breakpoints.down("md")]: {
-        transform: "translateX(-50px)",
+        transform: "translateX(-100px)",
       },
     },
   })
