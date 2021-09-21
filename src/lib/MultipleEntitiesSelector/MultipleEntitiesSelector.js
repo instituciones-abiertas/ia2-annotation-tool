@@ -130,11 +130,11 @@ function getStyles(name, selectedTag, theme) {
 }
 
 export default function MultipleEntitiesSelector({ onMultipleSelection }) {
-  const anonymizerState = useSelector(selectAnonymizer);
+  const { present } = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
-  const filteredTags = anonymizerState.tags.filter(
+  const filteredTags = present.tags.filter(
     (tag) => tag.enable_multiple_selection
   );
   const [open, setOpen] = useState(false);
@@ -154,8 +154,8 @@ export default function MultipleEntitiesSelector({ onMultipleSelection }) {
 
   const handleUpdate = () => {
     onMultipleSelection(
-      anonymizerState.newAnnotations,
-      anonymizerState.deleteAnnotations,
+      present.newAnnotations,
+      present.deleteAnnotations,
       selectedTags.map((tagName) => {
         return filteredTags.find((tag) => tag.name === tagName).id;
       })

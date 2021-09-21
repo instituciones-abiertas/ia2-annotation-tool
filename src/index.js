@@ -59,7 +59,7 @@ const App = () => {
       annotations={annotations}
       tags={tags}
       text={text}
-      multipleSelectionEnable={false}
+      multipleSelectionEnable
     />
   );
 };
