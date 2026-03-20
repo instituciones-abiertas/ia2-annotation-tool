@@ -392,8 +392,8 @@ const WrappedEditor = ({
       return store.subscribe(() => {
         const prevD = currentD;
         const prevNa = currentNa;
-        currentNa = store.getState().anonymizer.newAnnotations;
-        currentD = store.getState().anonymizer.deleteAnnotations;
+        currentNa = store.getState().anonymizer.present.newAnnotations;
+        currentD = store.getState().anonymizer.present.deleteAnnotations;
         if (prevD !== currentD || prevNa !== currentNa) {
           onAnnotationsChange(currentD, currentNa);
         }
